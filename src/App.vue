@@ -1,9 +1,40 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
+    <router-view v-if="isRouterAlive" />
   </div>
 </template>
+<script>
+export default {
+  provide() {
+    return {
+      reload: this.reload,
+    };
+  },
+  data() {
+    return {
+      isRouterAlive: true,
+    };
+  },
+  watch: {
+    $route: "routeChange",
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(() => (this.isRouterAlive = true));
+    },
+    routeChange(newVal, oldVal) {
+      if (newVal.name == oldVal.name) {
+        this.reload();
+      }
+    },
+  },
+  metaInfo: {
+    titleTemplate: (title) => {
+      return title
+        ? `${title} - ${process.env.VUE_APP_TITLE}`
+        : process.env.VUE_APP_TITLE;
+    },
+  },
+};
+</script>

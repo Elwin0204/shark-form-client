@@ -1,0 +1,26 @@
+/**
+ * @author Elwin
+ * @description 全局主题变量配置
+ */
+/* stylelint-disable */
+@charset "utf-8";
+
+$base-header-height: 56px !default;
+$base-header-z-index: 97 !default;
+
+$base-tabbar-height: 44px !default;
+$base-tabbar-z-index: 95 !default;
+
+$base-app-content-height: calc(
+  100vh - #{$base-header-height} - #{$base-tabbar-height} - #{$base-tabbar-height}
+);
+
+// sidebar
+$base-sidebar-width: 220px !default;
+$base-sidebar-collapse-width: 64px !default;
+$base-sidebar-z-index: 99 !default;
+
+// footer
+$base-footer-height: 48px !default;
+$base-footer-z-index: 95;
+:export {}
