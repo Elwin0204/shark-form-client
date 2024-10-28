@@ -1,9 +1,9 @@
 <template>
-  <div>123</div>
+  <div>copy</div>
 </template>
 <script>
 export default {
-  name: "ProjectTemplate",
+  name: "Template",
 };
 </script>
 <style lang="scss" scoped></style>

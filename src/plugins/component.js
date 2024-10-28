@@ -19,14 +19,6 @@ export function setupComponent() {
   setupCommonComponent();
 }
 
-// // 布局组件
-// const requireLayouts = require.context('@/layouts/components', true, /\.vue$/)
-// requireLayouts.keys().forEach((fileName) => {
-//   const componentConfig = requireLayouts(fileName)
-//   const componentName = componentConfig.default.name
-//   Vue.component(componentName, componentConfig.default || componentConfig)
-// })
-
 // 主题样式
 // const requireThemes = require.context('@/styles/themes', true, /\.scss$/)
 // requireThemes.keys().forEach((fileName) => {

@@ -5,13 +5,14 @@
     class="svg-external-icon svg-icon"
     v-on="$listeners"
   />
+  <i v-else-if="isElementIcon" :class="elClass" v-on="$listeners" />
   <svg v-else :class="svgClass" aria-hidden="true" v-on="$listeners">
     <use :xlink:href="iconName" />
   </svg>
 </template>
 
 <script>
-import { isExternal } from "@/utils/validate";
+import { isExternal, isElementIcon } from "@/utils/validate";
 
 export default {
   name: "SvgIcon",
@@ -29,6 +30,9 @@ export default {
     isExternal() {
       return isExternal(this.name);
     },
+    isElementIcon() {
+      return isElementIcon(this.name);
+    },
     iconName() {
       return `#icon-${this.name}`;
     },
@@ -37,6 +41,13 @@ export default {
         return "svg-icon " + this.className;
       } else {
         return "svg-icon";
+      }
+    },
+    elClass() {
+      if (this.className) {
+        return this.name + " svg-icon " + this.className;
+      } else {
+        return this.name + " svg-icon";
       }
     },
     styleExternalIcon() {

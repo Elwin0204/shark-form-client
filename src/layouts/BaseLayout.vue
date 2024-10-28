@@ -12,26 +12,26 @@
         class="app-tabbar transition-all-300 flex-shrink-0 absolute left-0 w-full"
         :class="{ collapse: sidebarCollapse }"
       >
-        tabbar
+        <SkTabbar />
       </div>
       <div class="app-tabbar-placement flex-shrink-0 overflow-hidden"></div>
       <aside
         class="app-sidebar absolute top-0 left-0 h-full transition-all-300"
         :class="{ collapse: sidebarCollapse }"
       >
-        sidebar
+        <SkSidebar />
       </aside>
       <main
         class="app-main flex flex-col flex-grow transition-all-300"
         :class="{ collapse: sidebarCollapse }"
       >
-        main
+        <SkAppContent />
       </main>
       <footer
         class="app-footer flex-shrink-0"
         :class="{ collapse: sidebarCollapse }"
       >
-        footer
+        <SkAppFooter />
       </footer>
     </div>
   </div>
@@ -39,10 +39,18 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import SkAppHeader from "./components/SkAppHeader/index";
+import SkAppContent from "./components/SkAppContent/index";
+import SkSidebar from "./components/SkSidebar/index";
+import SkTabbar from "./components/SkTabbar/index";
+import SkAppFooter from "./components/SkAppFooter/index";
 export default {
   name: "SkBaseLayout",
   components: {
     SkAppHeader,
+    SkAppContent,
+    SkSidebar,
+    SkTabbar,
+    SkAppFooter,
   },
   computed: {
     ...mapGetters({

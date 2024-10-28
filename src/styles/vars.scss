@@ -23,4 +23,23 @@ $base-sidebar-z-index: 99 !default;
 // footer
 $base-footer-height: 48px !default;
 $base-footer-z-index: 95;
-:export {}
+
+// 菜单颜色
+$base-menu-color: #000000e0 !default;
+$base-menu-color-active: #409EFF !default;
+$base-menu-background: #fff !default;
+
+$nprogress-color: #409EFF !default;
+
+// form layout
+$form-header-height: 50px !default;
+$form-header-z-index: 97 !default;
+
+:export {
+  //菜单文字颜色变量导出
+  menu-color: $base-menu-color;
+  //菜单选中文字颜色变量导出
+  menu-color-active: $base-menu-color-active;
+  //菜单背景色变量导出
+  menu-background: $base-menu-background;
+}

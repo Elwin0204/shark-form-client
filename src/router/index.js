@@ -1,39 +1,27 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import rootRoutes from "@/router/modules/root.route";
+import formRoutes from "@/router/modules/form.route";
+
+const constantRoutes = [...rootRoutes, ...formRoutes];
 const { publicPath } = require("../../build/build.js");
 
 Vue.use(VueRouter);
 
-const routes = [];
-const require_module = require.context("./modules", false, /.js$/);
-require_module.keys().forEach((file_name) => {
-  routes.push(require_module(file_name).default);
-});
-routes.push({
-  path: "*",
-  component: () => import("@/views/error/404.vue"),
-  meta: {
-    title: "找不到页面",
-  },
-});
-console.log("routes", routes);
+// 解决路由在 push/replace 了相同地址报错的问题
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err);
+};
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch((err) => err);
+};
 
 const router = new VueRouter({
   mode: "history",
   base: publicPath,
-  // routes: [
-  //   {
-  //     path: "/",
-  //     meta: { auth: false },
-  //     component: () => import("@/views/AboutView.vue"),
-  //   },
-  //   {
-  //     path: "/login",
-  //     meta: { auth: false },
-  //     component: () => import("@/views/user/login/index.vue"),
-  //   },
-  // ],
-  routes: routes.flat(),
+  routes: constantRoutes,
 });
 
 export default router;

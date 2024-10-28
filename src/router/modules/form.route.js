@@ -1,35 +1,70 @@
 const formRoutes = [
   {
     path: "/project/form",
-    meta: { auth: false },
-    component: () => import("@/views/form/index.vue"),
+    meta: { title: "", auth: true, hidden: true },
+    component: () => import("@/views/form/layout/index.vue"),
     children: [
       {
         path: "",
-        meta: { auth: true },
+        meta: { title: "编辑", auth: true, hidden: true },
         component: () => import("@/views/form/editor/index.vue"),
       },
       {
         path: "editor",
-        meta: { auth: true },
+        meta: { title: "编辑", auth: true, hidden: true },
         component: () => import("@/views/form/editor/index.vue"),
       },
       {
         path: "logic",
-        meta: { auth: true },
+        meta: { title: "逻辑", auth: true, hidden: true },
         component: () => import("@/views/form/logic/index.vue"),
       },
       {
-        path: "preview",
-        meta: { auth: true },
-        component: () => import("@/views/form/preview/index.vue"),
+        path: "theme",
+        meta: { title: "外观", auth: true, hidden: true },
+        component: () => import("@/views/form/theme/index.vue"),
+      },
+      {
+        path: "setting",
+        meta: { title: "设置", auth: true, hidden: true },
+        component: () => import("@/views/form/setting/index.vue"),
       },
       {
         path: "publish",
-        meta: { auth: true },
+        meta: { title: "发布", auth: true, hidden: true },
         component: () => import("@/views/form/publish/index.vue"),
       },
+      {
+        path: "data",
+        meta: { title: "数据", auth: true, hidden: true },
+        component: () => import("@/views/form/data/index.vue"),
+      },
+      {
+        path: "statistics",
+        meta: { title: "统计", auth: true, hidden: true },
+        component: () => import("@/views/form/statistics/index.vue"),
+      },
     ],
+  },
+  {
+    path: "/project/view",
+    meta: { title: "", auth: true, hidden: true },
+    component: () => import("@/views/form/preview/ProjectForm.vue"),
+  },
+  {
+    path: "/project/public/result",
+    meta: { title: "", auth: true, hidden: true },
+    component: () => import("@/views/form/report/ReportPublic.vue"),
+  },
+  {
+    path: "/s/:key",
+    meta: { title: "", auth: true, hidden: true },
+    component: () => import("@/views/form/write/index.vue"),
+  },
+  {
+    path: "/project/write",
+    meta: { title: "", auth: true, hidden: true },
+    component: () => import("@/views/form/write/index.vue"),
   },
 ];
 

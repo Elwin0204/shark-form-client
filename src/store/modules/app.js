@@ -2,9 +2,11 @@
 
 const state = () => ({
   sidebarCollapse: false,
+  tabMode: "chrome",
 });
 const getters = {
   sidebarCollapse: (state) => state.sidebarCollapse,
+  tabMode: (state) => state.tabMode,
 };
 const mutations = {
   toggleSidebar(state) {

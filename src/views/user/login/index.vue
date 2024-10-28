@@ -89,9 +89,11 @@ export default {
         if (valid) {
           this.$store.dispatch("user/login", this.form).then(() => {
             if (this.$route.query.redirect) {
-              this.$router.query.replace({ path: this.$route.query.redirect });
+              console.log("login replace", this.$route.query.redirect);
+              this.$router.replace({ path: this.$route.query.redirect });
             } else {
-              this.$router.push({ path: "/my-form" });
+              this.$router.push({ path: "/" });
+              // this.$router.push({ path: "/my-form" });
             }
           });
         }

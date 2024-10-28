@@ -1,26 +1,23 @@
-import BaseLayout from "@/layouts/BaseLayout.vue";
 const rootRoutes = [
   {
     path: "/login",
-    meta: { auth: false },
+    meta: { title: "登录", auth: true, hidden: true },
     component: () => import("@/views/user/login/index.vue"),
   },
   {
     path: "/forget/password",
-    meta: { auth: false },
+    meta: { title: "忘记密码", auth: true, hidden: true },
     component: () => import("@/views/user/forget/index.vue"),
   },
   {
-    path: "/my-form",
-    meta: { auth: true },
-    component: BaseLayout,
-    children: [
-      {
-        path: "/",
-        meta: { auth: true },
-        component: () => import("@/views/project/my/index"),
-      },
-    ],
+    path: "/401",
+    meta: { title: "401", auth: true, hidden: true },
+    component: () => import("@/views/error/401.vue"),
+  },
+  {
+    path: "/404",
+    meta: { title: "404", auth: true, hidden: true },
+    component: () => import("@/views/error/404.vue"),
   },
 ];
 
