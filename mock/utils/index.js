@@ -1,4 +1,4 @@
-const {} = require("moc");
+const { Random } = require("mockjs");
 const { join } = require("path");
 const fs = require("fs");
 
@@ -9,7 +9,7 @@ const fs = require("fs");
  * @returns {string}
  */
 function createRandomImage(width = 50, height = 50) {
-  return `https://picsum.photos/${width}/${height}?random=${Random.guid()}`
+  return `https://picsum.photos/${width}/${height}?random=${Random.guid()}`;
 }
 
 /**
@@ -22,16 +22,16 @@ function handleMockArr() {
     const findJsonFile = (path) => {
       const files = fs.readdirSync(path);
       files.forEach((item) => {
-        const fPath = join(path, item);;
+        const fPath = join(path, item);
         const stat = fs.statSync(fPath);
-        if(stat.isDirectory()) findJsonFile(item)
-        if(stat.isFile()) jsonFiles.push(item)
+        if (stat.isDirectory()) findJsonFile(item);
+        if (stat.isFile()) jsonFiles.push(item);
       });
-    }
+    };
 
     findJsonFile(jsonPath);
     jsonFiles.forEach((item) => mockArr.push(`./controller/${item}`));
-  }
+  };
 
   getFiles("mock/controller");
   return mockArr;

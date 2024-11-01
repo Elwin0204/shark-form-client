@@ -11,8 +11,7 @@ export const formConf = {
   span: 24,
   title: "问卷名称",
   description:
-    "为了给您提供更好的服务，希望您能抽出几分钟时间，将您的感受和建议告诉我们，我们非常重视每位\n" +
-    "用户的宝贵意见，期待您的参与！现在我们就马上开始吧！",
+    "感谢您能抽出几分钟时间来参加本次表单填写，现在我们就马上开始吧！",
   formBtns: true,
   unFocusedComponentBorder: true,
 };

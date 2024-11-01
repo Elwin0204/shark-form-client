@@ -16,7 +16,7 @@ const settings = {
   uniqueOpened: true,
   baseURL: process.env.VUE_APP_API_URL,
   requestTimeout: 10000,
-  contentType: "application/json;charset=UTF-8"
+  contentType: "application/json;charset=UTF-8",
 };
 
 export default settings;

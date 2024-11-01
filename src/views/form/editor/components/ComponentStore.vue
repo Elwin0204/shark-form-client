@@ -26,13 +26,14 @@
             class="component-item transition-300"
             v-for="(component, index) in block.list"
             :key="index"
+            @click="addComponent(component)"
           >
             <div class="component-content">
               <svg-icon
-                :name="component.__config__.tagIcon"
+                :name="component.config.tagIcon"
                 style="margin-right: 5px"
               />
-              <span>{{ component.__config__.label }}</span>
+              <span>{{ component.config.label }}</span>
             </div>
           </div>
         </draggable>
@@ -49,13 +50,24 @@ import {
 } from "@/core/config";
 import draggable from "vuedraggable";
 import cloneDeep from "lodash-es/cloneDeep";
-import { createFormItemId } from "@/core/utils";
+import {
+  createFormItemId,
+  createRenderKey,
+  convertFormItem,
+} from "@/core/utils";
+import { saveFormItemApi, queryFormItemSortApi } from "@/api/form.api.js";
+import { mapActions, mapGetters } from "vuex";
 
-//let tempActiveData;
+let tempActiveFormItem;
 export default {
   name: "ComponentStore",
   components: {
     draggable,
+  },
+  computed: {
+    ...mapGetters({
+      formList: "form/formList",
+    }),
   },
   data() {
     return {
@@ -74,40 +86,101 @@ export default {
         },
       ],
       formConf: null,
-      projectKey: null,
+      formKey: null,
       formId: null,
     };
   },
   methods: {
-    initProject() {
+    ...mapActions({
+      addFormItem: "form/addFormItem",
+      setActiveFormItem: "form/setActiveFormItem",
+      setFormItemSort: "form/setFormItemSort",
+    }),
+    initForm() {
       this.formConf = cloneDeep(formConf);
-      this.projectKey = this.$route.key;
+      this.formKey = this.$route.query.key;
     },
     // 获取表单配置
-    queryProjectConf() {},
+    queryFormConf() {},
     // 获取表单子项
-    queryProjectItems() {},
+    queryFormItems() {},
     cloneComponent(origin) {
       const clone = cloneDeep(origin);
-      const config = clone.__config__;
+      const config = clone.config;
       config.span = this.formConf.span;
       this.formId = createFormItemId(clone.typeId);
+      this.handleFormItem(clone);
+      if (clone.placeholder !== undefined) clone.placeholder += config.label;
+      tempActiveFormItem = clone;
+      return tempActiveFormItem;
     },
-    onEnd() {},
-    handleFormItem(item) {
-      const config = item.__config__;
-      config.formId = this.formId;
-      config.renderKey = `${config.formId}${+new Date()}`;
-      if (config.layout === "colFormItem") {
-        item.__vModel__ = `field${this.formId}`;
-      } else if (config.layout === "rowFormItem") {
-        config.componentName = `row${this.formId}`;
-        !Array.isArray(config.children) && (config.children = []);
-        delete config.label; // rowFormItem无需配置label属性
+    onEnd(target) {
+      if (target.from !== target.to) {
+        this.setActiveFormItem(tempActiveFormItem);
+        this.saveFormItem(tempActiveFormItem).then(() => {
+          this.handleFormItemSort(target);
+        });
       }
+    },
+    handleFormItemSort(target) {
+      const params = { formKey: this.formKey };
+      const preIndex = target.newIndex - 1;
+      const nextIndex = target.newIndex + 1;
+      if (this.formList[preIndex]) {
+        const preSort = this.formList[preIndex].sort;
+        params.beforePosition = preSort;
+      }
+      if (this.formList[nextIndex]) {
+        const nextSort = this.formList[nextIndex].sort;
+        params.afterPosition = nextSort;
+      }
+      params.formKey = this.formKey;
+      params.formItemId = this.formList[target.newIndex].config.formId;
+      if (params.beforePosition || params.afterPosition) {
+        queryFormItemSortApi(params).then((res) => {
+          this.setFormItemSort({ index: target.newIndex, sort: res.data.sort });
+        });
+      }
+    },
+    handleFormItem(item) {
+      const config = item.config;
+      config.formId = this.formId;
+      config.renderKey = createRenderKey();
+      item.vModel = this.formId;
+      // if (config.layout === "colFormItem") {
+      //   item.vModel = `field${this.formId}`;
+      // } else if (config.layout === "rowFormItem") {
+      //   config.componentName = `row${this.formId}`;
+      //   if (!Array.isArray(config.children)) config.children = [];
+      //   delete config.label; // rowFormItem无需配置label属性
+      // }
+
+      // if (Array.isArray(config.children)) {
+      //   config.children = config.children.map((child) =>
+      //     this.handleFormItem(child)
+      //   );
+      // }
+
+      return item;
+    },
+    async saveFormItem(item) {
+      let flag = false;
+      const params = convertFormItem(item, this.formKey);
+      await saveFormItemApi(params).then((res) => {
+        item.sort = res.data.sort;
+        flag = true;
+      });
+      return flag;
+    },
+    addComponent(item) {
+      const clone = this.cloneComponent(item);
+      this.saveFormItem(clone);
+      this.addFormItem(clone);
+      this.setActiveFormItem(clone);
     },
   },
   mounted() {
+    this.initForm();
     // console.log("componentList", this.componentList);
   },
 };

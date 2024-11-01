@@ -1,7 +1,7 @@
 module.exports = [
   /**
    * @description 創建表單id
-   * @request 
+   * @request
    * description: "<p style=\"text-align: center;\" data-mce-style=\"text-align: center;\">感谢您能抽出几分钟时间来参加本次表单填写，现在我们就马上开始吧！</p>",
    * folderId: 0,
    * name: "<h2 style='text-align: center;'>未命名问卷</h2>",
@@ -13,11 +13,12 @@ module.exports = [
     response() {
       return {
         code: 200,
-        msg: 'success',
+        msg: "success",
         data: {
           createTime: "2024-10-26 14:22:54",
           deleted: false,
-          description: "<p style=\"text-align: center;\" data-mce-style=\"text-align: center;\">感谢您能抽出几分钟时间来参加本次表单填写，现在我们就马上开始吧！</p>",
+          description:
+            '<p style="text-align: center;" data-mce-style="text-align: center;">感谢您能抽出几分钟时间来参加本次表单填写，现在我们就马上开始吧！</p>',
           folder: null,
           folderId: 0,
           formKey: "wCYqIGPq",
@@ -32,7 +33,7 @@ module.exports = [
           type: 1,
           typeDesc: "普通表单",
           updateTime: null,
-          userId: 8711
+          userId: 8711,
         },
       };
     },
@@ -41,16 +42,17 @@ module.exports = [
    * @description 通过id获取表单配置
    */
   {
-    url: "/\/form\/\w+/",
+    url: "//form/w+/",
     type: "get",
     response() {
       return {
         code: 200,
-        msg: 'success',
+        msg: "success",
         data: {
           createTime: "2024-10-26 14:22:54",
           deleted: false,
-          description: "<p style=\"text-align: center;\" data-mce-style=\"text-align: center;\">感谢您能抽出几分钟时间来参加本次表单填写，现在我们就马上开始吧！</p>",
+          description:
+            '<p style="text-align: center;" data-mce-style="text-align: center;">感谢您能抽出几分钟时间来参加本次表单填写，现在我们就马上开始吧！</p>',
           folder: null,
           folderId: 0,
           formKey: "wCYqIGPq",
@@ -65,8 +67,8 @@ module.exports = [
           type: 1,
           typeDesc: "普通表单",
           updateTime: null,
-          userId: 8711
-        }
+          userId: 8711,
+        },
       };
     },
   },
@@ -80,7 +82,7 @@ module.exports = [
         placeholder: "请输入单行文本",
         regList: [],
         required: true,
-        scheme: {
+        config: {
           clearable: true,
           config: {
             append: "",
@@ -123,14 +125,14 @@ module.exports = [
     response() {
       return {
         code: 200,
-        msg: 'success',
+        msg: "success",
         data: {
           itemDataId: 242073,
           operateSuccess: true,
           refreshAll: false,
           sort: 65536,
-        }
-      }
+        },
+      };
     },
   },
   /**
@@ -143,9 +145,53 @@ module.exports = [
     response() {
       return {
         code: 200,
-        msg: 'success',
+        msg: "success",
         data: true,
-      }
+      };
+    },
+  },
+  /**
+   * @description 获取表单子项排序
+   * @request
+   * {
+      "formKey": "wCYqIGPq",
+      "beforePosition": 393216,
+      "formItemId": "table_select1730192119198"
+    }
+   */
+  {
+    url: "/form/item/sort",
+    type: "post",
+    response() {
+      return {
+        code: 200,
+        msg: "success",
+        data: {
+          itemDataId: 242342,
+          operateSuccess: true,
+          refreshAll: false,
+          sort: 524288,
+        },
+      };
+    },
+  },
+  /**
+   * @description 删除表单子项
+   * @request
+   * {
+   *   formKey: wCYqIGPq,
+   *   formItemId: table_select1730192119198
+   * }
+   */
+  {
+    url: "/form/item/delete",
+    type: "post",
+    response() {
+      return {
+        code: 200,
+        msg: "success",
+        data: true,
+      };
     },
   },
 ];

@@ -7,7 +7,7 @@ export const baseComponents = [
   {
     // 组件的自定义配置
     typeId: "INPUT",
-    __config__: {
+    config: {
       label: "单行文本",
       labelWidth: null,
       showLabel: true,
@@ -16,14 +16,11 @@ export const baseComponents = [
       tagIcon: "input",
       defaultValue: undefined,
       required: true,
-      layout: "colFormItem",
+
       span: 24,
-      document: "https://element.eleme.cn/#/zh-CN/component/input",
       // 正则校验规则
       regList: [],
-    },
-    // 组件的插槽属性
-    __slot__: {
+      // 插槽属性
       prepend: "",
       append: "",
     },
@@ -40,7 +37,7 @@ export const baseComponents = [
   },
   {
     typeId: "NUMBER_INPUT",
-    __config__: {
+    config: {
       label: "数字组件",
       showLabel: true,
       changeTag: true,
@@ -49,10 +46,9 @@ export const baseComponents = [
       tagIcon: "number",
       defaultValue: undefined,
       span: 24,
-      layout: "colFormItem",
+
       required: true,
       regList: [],
-      document: "https://element.eleme.cn/#/zh-CN/component/input-number",
     },
     placeholder: "",
     min: undefined,
@@ -65,7 +61,7 @@ export const baseComponents = [
   },
   {
     typeId: "TEXTAREA",
-    __config__: {
+    config: {
       label: "多行文本",
       labelWidth: null,
       showLabel: true,
@@ -73,11 +69,10 @@ export const baseComponents = [
       tagIcon: "textarea",
       defaultValue: undefined,
       required: true,
-      layout: "colFormItem",
+
       span: 24,
       regList: [],
       changeTag: true,
-      document: "https://element.eleme.cn/#/zh-CN/component/input",
     },
     type: "textarea",
     placeholder: "请输入",
@@ -93,7 +88,7 @@ export const baseComponents = [
   },
   {
     typeId: "DATE",
-    __config__: {
+    config: {
       label: "日期时间",
       tag: "el-date-picker",
       tagIcon: "date",
@@ -101,11 +96,9 @@ export const baseComponents = [
       showLabel: true,
       labelWidth: null,
       span: 24,
-      layout: "colFormItem",
       required: true,
       regList: [],
       changeTag: true,
-      document: "https://element.eleme.cn/#/zh-CN/component/date-picker",
     },
     placeholder: "请选择",
     type: "date",
@@ -118,7 +111,7 @@ export const baseComponents = [
   },
   {
     typeId: "RATE",
-    __config__: {
+    config: {
       label: "评分组件",
       tag: "el-rate",
       tagIcon: "rate",
@@ -127,11 +120,10 @@ export const baseComponents = [
       showLabel: true,
       showRegList: false,
       labelWidth: null,
-      layout: "colFormItem",
+
       required: true,
       regList: [],
       changeTag: true,
-      document: "https://element.eleme.cn/#/zh-CN/component/rate",
     },
     style: {},
     max: 5,
@@ -142,7 +134,7 @@ export const baseComponents = [
   },
   {
     typeId: "SLIDER",
-    __config__: {
+    config: {
       label: "滑块组件",
       tag: "el-slider",
       tagIcon: "slider",
@@ -150,12 +142,11 @@ export const baseComponents = [
       showRegList: false,
       span: 24,
       showLabel: true,
-      layout: "colFormItem",
+
       labelWidth: null,
       required: true,
       regList: [],
       changeTag: true,
-      document: "https://element.eleme.cn/#/zh-CN/component/slider",
     },
     disabled: false,
     min: 0,
@@ -166,11 +157,11 @@ export const baseComponents = [
   },
   {
     typeId: "UPLOAD",
-    __config__: {
+    config: {
       label: "文件上传",
       tag: "el-upload",
       tagIcon: "upload",
-      layout: "colFormItem",
+
       defaultValue: null,
       showLabel: true,
       showRegList: false,
@@ -183,10 +174,6 @@ export const baseComponents = [
       changeTag: true,
       fileSize: 10,
       sizeUnit: "MB",
-      document: "https://element.eleme.cn/#/zh-CN/component/upload",
-    },
-    __slot__: {
-      "list-type": true,
     },
     action: process.env.VUE_APP_API_ROOT + "/project/file/upload/",
     disabled: false,

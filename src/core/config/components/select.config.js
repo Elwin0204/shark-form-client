@@ -6,20 +6,17 @@
 export const selectComponents = [
   {
     typeId: "SELECT",
-    __config__: {
+    config: {
       label: "下拉选择",
       showLabel: true,
       labelWidth: null,
       tag: "el-select",
       tagIcon: "select",
-      layout: "colFormItem",
+
       span: 24,
       required: true,
       regList: [],
       changeTag: true,
-      document: "https://element.eleme.cn/#/zh-CN/component/select",
-    },
-    __slot__: {
       options: [
         {
           label: "选项一",
@@ -40,7 +37,7 @@ export const selectComponents = [
   },
   {
     typeId: "CASCADER",
-    __config__: {
+    config: {
       label: "级联选择",
       url: "https://www.fastmock.site/mock/f8d7a54fb1e60561e2f720d5a810009d/fg/cascaderList",
       method: "get",
@@ -49,29 +46,28 @@ export const selectComponents = [
       labelWidth: null,
       tag: "el-cascader",
       tagIcon: "cascader",
-      layout: "colFormItem",
+
       defaultValue: [],
       dataType: "static",
       span: 24,
       required: true,
       regList: [],
       changeTag: true,
-      document: "https://element.eleme.cn/#/zh-CN/component/cascader",
+      options: [
+        {
+          id: 1,
+          value: 1,
+          label: "选项1",
+          children: [
+            {
+              id: 2,
+              value: 2,
+              label: "选项1-1",
+            },
+          ],
+        },
+      ],
     },
-    options: [
-      {
-        id: 1,
-        value: 1,
-        label: "选项1",
-        children: [
-          {
-            id: 2,
-            value: 2,
-            label: "选项1-1",
-          },
-        ],
-      },
-    ],
     placeholder: "请选择",
     style: { width: "100%" },
     props: {
@@ -90,7 +86,7 @@ export const selectComponents = [
   },
   {
     typeId: "RADIO",
-    __config__: {
+    config: {
       label: "单选框组",
       labelWidth: null,
       showLabel: true,
@@ -99,15 +95,12 @@ export const selectComponents = [
       tagIcon: "radio",
       changeTag: true,
       defaultValue: undefined,
-      layout: "colFormItem",
+
       span: 24,
       optionType: "default",
       regList: [],
       required: true,
       border: false,
-      document: "https://element.eleme.cn/#/zh-CN/component/radio",
-    },
-    __slot__: {
       options: [
         {
           label: "选项一",
@@ -125,7 +118,7 @@ export const selectComponents = [
   },
   {
     typeId: "CHECKBOX",
-    __config__: {
+    config: {
       label: "多选框组",
       tag: "el-checkbox-group",
       tagIcon: "checkbox",
@@ -134,15 +127,12 @@ export const selectComponents = [
       showLabel: true,
       showRegList: false,
       labelWidth: null,
-      layout: "colFormItem",
+
       optionType: "default",
       required: true,
       regList: [],
       changeTag: true,
       border: false,
-      document: "https://element.eleme.cn/#/zh-CN/component/checkbox",
-    },
-    __slot__: {
       options: [
         {
           label: "选项一",

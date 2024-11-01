@@ -8,6 +8,11 @@ import { setupPlugins } from "./plugins";
 
 Vue.config.productionTip = false;
 
+if (process.env.VUE_APP_MOCK === "Y") {
+  const { mockXHR } = require("@/utils/mockHandler");
+  mockXHR();
+}
+
 function setupApp() {
   setupPlugins();
   new Vue({

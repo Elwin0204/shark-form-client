@@ -10,7 +10,7 @@ const { handleMockArr } = require("./utils");
 /**
  * @author Elwin
  * @description 注册mock路由
- * @param app 
+ * @param app
  */
 const registerRoutes = (app) => {
   let mockLastIndex;
@@ -23,7 +23,7 @@ const registerRoutes = (app) => {
   const mocksForServer = mocks.map((route) => {
     return responseFake(route.url, route.type, route.response);
   });
-  for(const mock of mocksForServer) {
+  for (const mock of mocksForServer) {
     app[mock.type](mock.url, mock.response);
     mockLastIndex = app._router.stack.length;
   }
@@ -32,7 +32,7 @@ const registerRoutes = (app) => {
     mockRoutesLength: mockRoutesLength,
     mockStartIndex: mockLastIndex - mockRoutesLength,
   };
-}
+};
 
 const responseFake = (url, type, respond) => {
   return {
@@ -40,16 +40,16 @@ const responseFake = (url, type, respond) => {
     type: type || "get",
     response(req, res) {
       res.status(200);
-      if(JSON.stringify(req.body) !== "{}") {
+      if (JSON.stringify(req.body) !== "{}") {
         console.log(chalk.green(`> 请求地址：${req.path}`));
         console.log(chalk.green(`> 请求参数：${JSON.stringify(req.body)}\n`));
       } else {
         console.log(chalk.green(`> 请求地址：${req.path}\n`));
       }
       res.json(mock(respond instanceof Function ? respond(req, res) : respond));
-    }
+    },
   };
-}
+};
 
 module.exports = (app) => {
   app.use(bodyParser.json());
@@ -58,26 +58,28 @@ module.exports = (app) => {
   const mockRoutes = registerRoutes(app);
   let mockRoutesLength = mockRoutes.mockRoutesLength;
   let mockStartIndex = mockRoutes.mockStartIndex;
-  chokidar.watch(mockDir, {
-    ignored: /mock-server/,
-    ignoreInitial: true,
-  }).on("all", (event) => {
-    if (event === "change" || event === "add") {
-      try {
-        app._router.stack.splice(mockStartIndex, mockRoutesLength);
+  chokidar
+    .watch(mockDir, {
+      ignored: /mock-server/,
+      ignoreInitial: true,
+    })
+    .on("all", (event) => {
+      if (event === "change" || event === "add") {
+        try {
+          app._router.stack.splice(mockStartIndex, mockRoutesLength);
 
-        Object.keys(require.cache).forEach((item) => {
-          if(item.includes(mockDir)) {
-            delete require.cache[require.resolve(item)];
-          }
-        });
+          Object.keys(require.cache).forEach((item) => {
+            if (item.includes(mockDir)) {
+              delete require.cache[require.resolve(item)];
+            }
+          });
 
-        const mockRoutes = registerRoutes(app);
-        mockRoutesLength = mockRoutes.mockRoutesLength;
-        mockStartIndex = mockRoutes.mockStartIndex;
-      } catch(err) {
-        console.log(chalk.red(error));
+          const mockRoutes = registerRoutes(app);
+          mockRoutesLength = mockRoutes.mockRoutesLength;
+          mockStartIndex = mockRoutes.mockStartIndex;
+        } catch (err) {
+          console.log(chalk.red(err));
+        }
       }
-    }
-  })
-}
+    });
+};

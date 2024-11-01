@@ -6,5 +6,5 @@
 export default {
   invalidCode: 402,
   noPermissionCode: 401,
-  noFoundCode: 404
+  noFoundCode: 404,
 };
