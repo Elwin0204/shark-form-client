@@ -17,6 +17,7 @@ const settings = {
   baseURL: process.env.VUE_APP_API_URL,
   requestTimeout: 10000,
   contentType: "application/json;charset=UTF-8",
+  uploadUrl: "",
 };
 
 export default settings;
